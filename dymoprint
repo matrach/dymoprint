@@ -458,7 +458,7 @@ def main(args):
         die(access_error(dev))
 
     # read config file
-    conf_path = os.path.dirname(sys.argv[0])
+    conf_path = os.path.dirname(__file__)
     read_config(conf_path+'/'+CONFIG_FILE)
 
     labeltext = args.text
@@ -526,7 +526,7 @@ def main(args):
         # create an empty label image
         labelheight = lm._MAX_BYTES_PER_LINE * 8
         lineheight = float(labelheight) / len(labeltext)
-        fontsize = int(round(lineheight * FONT_SIZERATIO))
+        fontsize = 40 #int(round(lineheight * FONT_SIZERATIO))
         font = ImageFont.truetype(FONT_FILENAME, fontsize)
         labelwidth = max(font.getsize(line)[0] for line in labeltext) + (fontoffset*2)
         labelbitmap = Image.new('1', (labelwidth, labelheight))
@@ -537,10 +537,9 @@ def main(args):
             labeldraw.rectangle(((0,0),(labelwidth-1,labelheight-1)),fill=255)
             labeldraw.rectangle(((fontoffset,fontoffset),(labelwidth-(fontoffset+1),labelheight-(fontoffset+1))),fill=0)
 
-        # write the text into the empty image
-        for i, line in enumerate(labeltext):
-            lineposition = int(round(i * lineheight))
-            labeldraw.text((fontoffset, lineposition), line, font=font, fill=255)
+        # This breaks previous behaviour of multiple lines
+        w, h = labeldraw.textsize(labeltext[0], font=font)
+        labeldraw.text(((labelwidth - w)//2, (labelheight-h)//2), labeltext[0], font=font, fill=255)
         del labeldraw
 
     # convert the image to the proper matrix for the dymo labeler object

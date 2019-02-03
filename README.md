@@ -5,6 +5,7 @@ Linux Software to print with LabelManager PnP from Dymo
 
 
 cloned for development from https://sbronner.com/dymoprint.html
+then forked from https://github.com/computerlyrik/dymoprint
 
 Changes:
 
@@ -21,7 +22,7 @@ use **udev** and **modeswitch** configurations to work with the LabelManager PNP
 
 and restart services with:
 
-    sudo reload udev
+    sudo service udev reload
 
 ([more info](http://www.draisberghof.de/usb_modeswitch/bb/viewtopic.php?t=947))
 
@@ -50,12 +51,7 @@ http://font.ubuntu.com/ and use it.
 ### ToDo
 - (?)support multiple ProductIDs (1001, 1002) -> use usb-modeswitch?
 - put everything in classes that would need to be used by a GUI
-- ~~for more options use command line parser framework~~
-- ~~allow selection of font with command line options~~
 - allow font size specification with command line option (points, pixels?)
-- ~~provide an option to show a preview of what the label will look like~~
-- ~~read and write a .dymoprint file containing user preferences~~
-- ~~print barcodes~~
 - print graphics
-- ~~plot frame around label~~
 - vertical print
+- add option to wait until free (e.g. not used by Cups)
